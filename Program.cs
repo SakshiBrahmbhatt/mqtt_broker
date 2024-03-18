@@ -49,12 +49,12 @@ class Program
 
         mqttServer.ClientConnectedHandler = new MqttServerClientConnectedHandlerDelegate(e =>
         {
-             Console.WriteLine($"Client connected: {clientIpAddress}");
+             Console.WriteLine($"Client connected: {clientIpAddress} and id: {e.ClientId}");
         });
 
         mqttServer.ClientDisconnectedHandler = new MqttServerClientDisconnectedHandlerDelegate(e =>
         {
-            Console.WriteLine($"Client disconnected");
+            Console.WriteLine($"Client disconnected: {e.ClientId}");
         });
         mqttServer.ClientSubscribedTopicHandler = new MqttServerClientSubscribedHandlerDelegate(e => {
             Console.WriteLine("Client Subscribed to topic: "+ e.TopicFilter);
