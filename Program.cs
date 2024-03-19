@@ -40,7 +40,7 @@ class Program
             })
             .WithApplicationMessageInterceptor(context =>
             {
-                Console.WriteLine($"Client published message:");
+                Console.WriteLine($"Client {context.ClientId} published message:");
                 Console.WriteLine($"Topic: {context.ApplicationMessage.Topic}");
                 Console.WriteLine($"Payload: {context.ApplicationMessage.ConvertPayloadToString()}");
             });
@@ -57,10 +57,10 @@ class Program
             Console.WriteLine($"Client disconnected: {e.ClientId}");
         });
         mqttServer.ClientSubscribedTopicHandler = new MqttServerClientSubscribedHandlerDelegate(e => {
-            Console.WriteLine("Client Subscribed to topic: "+ e.TopicFilter);
+            Console.WriteLine($"Client {e.ClientId} Subscribed to topic: "+ e.TopicFilter);
         });
         mqttServer.ClientUnsubscribedTopicHandler = new MqttServerClientUnsubscribedTopicHandlerDelegate(e => {
-            Console.WriteLine("Client unsubscribed to topic: "+ e.TopicFilter);
+            Console.WriteLine($"Client {e.ClientId} unsubscribed to topic: "+ e.TopicFilter);
         });
 
         try
